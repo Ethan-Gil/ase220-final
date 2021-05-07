@@ -19,6 +19,7 @@
 			<button type="submit">Create post</button>
 		</form>
 		<script src="assets/jquery-3.5.1.min.js"></script>
+		<script src="assets/app.js"></script>
 		<script>
 			$(document).on('submit','#create',function(e){
 				//tell the browser to ignore the default event handler
@@ -33,7 +34,7 @@
 				console.log(data);
 				$.ajax({
 					type:'POST',
-					url:'https://nku-ase200-1.herokuapp.com/API/posts.php',
+					url: API_URL + 'posts.php',
 					data:data,
 					success: function(output, status, xhr) { 
 						if(output.status==1){

@@ -10,3 +10,9 @@ function findGetParameter(parameterName){
 	});
 	return result;
 }
+
+// Remote API URL
+// const API_URL = "https://ase220-website.herokuapp.com/API/";
+
+// Local API URL
+const API_URL = "API/";
