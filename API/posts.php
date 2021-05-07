@@ -30,7 +30,7 @@ function index($pdo){
 }
 
 function detail($pdo){
-	$stmt = $pdo->prepare('SELECT ID,title,content,img,user_ID,date FROM posts WHERE ID=?');
+	$stmt = $pdo->prepare('SELECT ID,title,description,image,date,user_ID FROM posts WHERE ID=?');
 	$stmt->execute([$_GET['id']]);
 	$post=$stmt->fetch();
 	if(isset($_SESSION['user/ID']) && ($post['user_ID']==$_SESSION['user/ID'] || $_SESSION['user/is_admin']==1)) $post['manage']=1;
@@ -41,19 +41,19 @@ function detail($pdo){
 function create($pdo){
 	if(!isset($_SESSION['user/ID'])) die(json_encode(['status'=>-1,'message'=>'This page is for registered users only. Please <a href="auth.php">Sign in</a>.']));
 	if(count($_POST)>0){
-		$stmt = $pdo->prepare('INSERT INTO posts (title, content, date, img, user_ID) VALUES (?,?,?,?,?)');
-		$stmt->execute([$_POST['title'],$_POST['content'],str_replace('T',' ',$_POST['date']),$_POST['img'],$_SESSION['user/ID']]);
+		$stmt = $pdo->prepare('INSERT INTO posts (title, description, image, date, user_ID) VALUES (?,?,?,?,?)');
+		$stmt->execute([$_POST['title'], $_POST['description'], $_POST['image'], $_POST['date'], $_SESSION['user/ID']]);
 		die(json_encode(['status'=>1,'message'=>'The message has been saved.']));
 	}
 }
 
 function edit($pdo,$_PUT){
 	if(count($_PUT)>0){
-		$stmt = $pdo->prepare('UPDATE posts SET title = ?, content = ?, date = ?, img = ?, user_ID =? WHERE posts.ID =?');
-		$stmt->execute([$_PUT['title'],$_PUT['content'],str_replace('T',' ',$_PUT['date']),$_PUT['img'],$_PUT['user_ID'],$_PUT['ID']]);
-		die(json_encode(['status'=>1,'message'=>'Your data have been saved']));
+		$stmt = $pdo->prepare('UPDATE posts SET title = ?, description = ?, image = ?, date = ?, user_ID =? WHERE posts.ID =?');
+		$stmt->execute([$_PUT['title'],$_PUT['description'],$_PUT['image'],$_PUT['date'],$_PUT['user_ID'],$_PUT['ID']]);
+		die(json_encode(['status'=>1,'message'=>'Your data has been saved']));
 	}
-	die(json_encode(['status'=>-1,'message'=>'Your data were not saved']));
+	die(json_encode(['status'=>-1,'message'=>'Your data was not saved']));
 }
 
 function delete($pdo,$id){

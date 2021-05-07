@@ -59,6 +59,19 @@
 		<script src="assets/app.js"></script>
 
 		<script>
+
+			// console.log(`Action: ${findGetParameter('action')}`);
+			var action = findGetParameter('action');
+
+			// Signing out
+			if (action && action == 'signout') {
+				$.getJSON(API_URL + 'auth.php?action=signout' , function(data) {
+					if (data.status == 1) {
+						console.log("Logged out, status 1");
+					}
+				});
+			}
+			
 			$(document).on('submit','#signin',function(e){
 				//tell the browser to ignore the default event handler
 				e.preventDefault();

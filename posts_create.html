@@ -6,15 +6,14 @@
 			<label>Title</title><br />
 			<input type="text" name="title" /><br /><br />
 			
-			<label>Content</title><br />
-			<textarea name="content"></textarea><br /><br />
-			
+			<label>Description</title><br />
+			<textarea name="description"></textarea><br /><br />
 			
 			<label>Date</title><br />
-			<input type="datetime-local" name="date" /><br /><br />
+			<input type="text" name="date" /><br /><br />
 			
 			<label>Image</title><br />
-			<input type="url" name="img" /><br /><br />
+			<input type="url" name="image" /><br /><br />
 			
 			<button type="submit">Create post</button>
 		</form>
@@ -27,15 +26,15 @@
 				
 				var data={
 					title:$('form#create input[name=title]').val(),
-					content:$('form#create textarea[name=content]').val(),
-					date:$('form#create input[name=date]').val(),
-					img:$('form#create input[name=img]').val()
+					description:$('form#create textarea[name=description]').val(),
+					image:$('form#create input[name=image]').val(),
+					date:$('form#create input[name=date]').val()
 				};
 				console.log(data);
 				$.ajax({
 					type:'POST',
 					url: API_URL + 'posts.php',
-					data:data,
+					data: data,
 					success: function(output, status, xhr) { 
 						if(output.status==1){
 							alert('request is successful');
