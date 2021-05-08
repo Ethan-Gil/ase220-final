@@ -34,14 +34,15 @@
 		<script>
 
 			$.getJSON(API_URL + 'posts.php?id=' + findGetParameter('id'), function(post_data) {
-				$.getJSON(API_URL + 'getuser.php', function(user_data) {
+				// $.getJSON(API_URL + 'getuser.php', function(user_data) {
+
+					console.log(post_data['logged']);
 
 					// If there is no title, then redirect to index.
 					if(post_data.title==null) window.location.href='index.html';
 
 					// Logging both the post and user data
 					console.log(post_data);
-					console.log(user_data);
 
 					// Writing the post data to the page
 					$('#title').text(post_data.title);
@@ -51,11 +52,11 @@
 					
 
 					// Writing to the page whether or not the pet has been adopted
-					if (post_data.adopted == 0) {
-						$('#adopted').text(`${post_data.title} has not been adopted.`);
+					if (post_data.owner_ID) {
+						$('#adopted').text(`${post_data.title} has been adopted.`)
 					}
 					else {
-						$('#adopted').text(`${post_data.title} has been adopted.`)
+						$('#adopted').text(`${post_data.title} has not been adopted.`);
 					}
 
 					// Todo: Fix images
@@ -69,7 +70,7 @@
 
 					// Checking to see if a user is signed in. If they are, and the pet has not been adopted,
 					// the user will be shown the adopt button and have the ability to press it.
-					if (user_data['status'] != -1 && post_data['adopted'] == 0) {
+					if (post_data['logged'] == 1 && post_data['owner_ID'] == null) {
 						$('#adopt-div').append('<button id="btn-adopt">Adopt</button>');
 					}
 
@@ -81,7 +82,7 @@
 							type:'PUT',
 							url: API_URL + 'adopt.php',
 							data:{
-								title: post_data['id']
+								ID: post_data['ID']
 							},
 							success: function(output, status, xhr) { 
 								if(output.status==1) window.location.href='index.html';
@@ -89,7 +90,7 @@
 							}
 						});
 					});
-				});
+				// });
 			});
 
 			$(document).on('click','#btn-delete', function() {

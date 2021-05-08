@@ -1,0 +1,14 @@
+Selecting all pets and their owners, if they have one
+SELECT posts.ID,posts.title,users.firstname,users.lastname,users.email FROM posts LEFT JOIN users ON users.ID=posts.owner_ID
+
+All users and their pets, if they have one
+SELECT users.firstname, users.lastname, users.email, posts.title FROM users LEFT JOIN posts ON users.ID=posts.owner_ID
+
+All pets owned by a specific users (Id = 14)
+SELECT users.firstname, users.lastname, users.email, posts.title FROM users LEFT JOIN posts ON users.ID=posts.owner_ID WHERE users.ID=14 
+
+Display all the pets published by a specific user (Id = 14)
+SELECT users.firstname, users.lastname, users.email, posts.title FROM users LEFT JOIN posts ON users.ID=posts.user_ID WHERE users.ID=14 
+
+All pets and all shelters
+SELECT posts.ID,posts.title,users.firstname,users.lastname,users.email FROM posts LEFT JOIN users ON users.ID=posts.user_ID
