@@ -8,15 +8,43 @@
 	</head>
 	<body>
 		<h1>Adopt a pet!</h1>
+		<br />
+		<div id="welcome">
+		</div>
+
 		<br /><br />
 		<div id="posts">
 		</div>
+
+		<br /><br />
+		<div id="test">
+		</div>
+
+		
+
 		<script src="assets/jquery-3.5.1.min.js"></script>
 		<script>
 
+			// Getting the posts data
 			$.getJSON('API/posts.php', function(data) {
 				for(i=0;i<data.length;i++) $('#posts').append('<div><h4><a href="posts_detail.html?id='+data[i].ID+'">'+data[i].title+'</a></h4></div>');
 			});
+
+			// Getting user information, if it exists
+			$.getJSON('API/getuser.php', function(data) {
+				console.log(data);
+
+				if (data['status'] == -1) {
+					console.log("Error: User not signed in.");
+				}
+				else {
+					// $('#welcome').append('<div><h6>' + data['ID'] + ' | ' + data['email'] + ' | ' + data['firstname'] + ' | ' + data['lastname'] + ' | ' + data['adopted_animals'] + ' | ' + data['is_admin'] + '</h6></div>');
+					$('#welcome').append('<div><h5>Welcome ' + data['firstname'] + ' ' + data['lastname'] + '!</h5></div>');
+
+				}
+			});
+
+
 			
 		</script>
 	</body>

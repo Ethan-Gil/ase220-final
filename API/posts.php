@@ -30,7 +30,7 @@ function index($pdo){
 }
 
 function detail($pdo){
-	$stmt = $pdo->prepare('SELECT ID,title,description,image,date,user_ID FROM posts WHERE ID=?');
+	$stmt = $pdo->prepare('SELECT ID,title,description,image,date,user_ID,adopted FROM posts WHERE ID=?');
 	$stmt->execute([$_GET['id']]);
 	$post=$stmt->fetch();
 	if(isset($_SESSION['user/ID']) && ($post['user_ID']==$_SESSION['user/ID'] || $_SESSION['user/is_admin']==1)) $post['manage']=1;

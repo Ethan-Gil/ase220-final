@@ -10,18 +10,23 @@
 		<div class="container">
 			<h1 id="title"></h1>
 			<p id="date"></p>
-			<p id="author"></p>
+			<!-- <p id="author"></p> -->
 			<p id="description"></p>
+			<br />
+			<p id="adopted"></p>
 
 			<br />
 			<img src="..." id="image" width="25%" />
 			<br />
 
-
+			<div id="adopt-div">
+				<br />
+				<!-- adopt button will go here if the user is signed in -->
+			</div>
 
 
 			<a id="btn-edit" class="d-none manage" href="#">Edit this post</a>
-			<br />
+			<br /><br />
 			<button id="btn-delete" class="d-none manage">Delete this post</button>
 		</div>
 		<script src="assets/jquery-3.5.1.min.js"></script>
@@ -30,10 +35,21 @@
 
 			$.getJSON(API_URL + 'posts.php?id=' + findGetParameter('id'), function(data) {
 				if(data.title==null) window.location.href='index.html';
+
+				console.log(data);
+
 				$('#title').text(data.title);
 				$('#date').text('Published on: '+ data.date);
-				$('#author').text("Published by: "+ data.user_ID);
+				// $('#author').text("Published by: "+ data.user_ID);
 				$('#description').text(data.description);
+				
+
+				if (data.adopted == 0) {
+					$('#adopted').text(`${data.title} has not been adopted.`);
+				}
+				else {
+					$('#adopted').text(`${data.title} has been adopted.`)
+				}
 
 				// Todo: Fix images
 				console.log(`Image: ${data.image}`);
@@ -44,6 +60,18 @@
 					$('#btn-edit').attr('href','posts_edit.html?id='+findGetParameter('id'));
 				}
 			});
+
+			// If a user is signed in, they have the option to adopt this pet
+			$.getJSON('API/getuser.php', function(data) {
+				console.log(data);
+
+				if (data['status'] != -1) {
+					// Second condition checking if the pet has been adopted.
+					// if pet has been adopted, display that to the page
+					$('#adopt-div').append('<button>Adopt</button>');
+				}
+			});
+
 			$(document).on('click','#btn-delete',function(){
 				$.ajax({
 					type:'DELETE',
