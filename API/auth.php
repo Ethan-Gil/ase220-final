@@ -70,5 +70,6 @@ function signup($email, $password){
 	
 	$query->execute([$email,password_hash($password, PASSWORD_DEFAULT)]);
 
+	die(json_encode(['status'=>1,'message'=>'Your has been registered']));
 	//echo 'Your account has been created. Please, sign in.';
 }
