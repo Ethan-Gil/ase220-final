@@ -22,7 +22,6 @@ switch($_SERVER['REQUEST_METHOD']){
 		break;
 }
 
-
 function index($pdo){
 	$stmt=$pdo->prepare('SELECT ID,title,date FROM posts');
 	$stmt->execute([]);

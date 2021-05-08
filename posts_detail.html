@@ -33,46 +33,66 @@
 		<script src="assets/app.js"></script>
 		<script>
 
-			$.getJSON(API_URL + 'posts.php?id=' + findGetParameter('id'), function(data) {
-				if(data.title==null) window.location.href='index.html';
+			$.getJSON(API_URL + 'posts.php?id=' + findGetParameter('id'), function(post_data) {
+				$.getJSON(API_URL + 'getuser.php', function(user_data) {
 
-				console.log(data);
+					// If there is no title, then redirect to index.
+					if(post_data.title==null) window.location.href='index.html';
 
-				$('#title').text(data.title);
-				$('#date').text('Published on: '+ data.date);
-				// $('#author').text("Published by: "+ data.user_ID);
-				$('#description').text(data.description);
-				
+					// Logging both the post and user data
+					console.log(post_data);
+					console.log(user_data);
 
-				if (data.adopted == 0) {
-					$('#adopted').text(`${data.title} has not been adopted.`);
-				}
-				else {
-					$('#adopted').text(`${data.title} has been adopted.`)
-				}
+					// Writing the post data to the page
+					$('#title').text(post_data.title);
+					$('#date').text('Published on: '+ post_data.date);
+					// $('#author').text("Published by: "+ post_data.user_ID);
+					$('#description').text(post_data.description);
+					
 
-				// Todo: Fix images
-				console.log(`Image: ${data.image}`);
-				$('#image').attr('src', data.image);
+					// Writing to the page whether or not the pet has been adopted
+					if (post_data.adopted == 0) {
+						$('#adopted').text(`${post_data.title} has not been adopted.`);
+					}
+					else {
+						$('#adopted').text(`${post_data.title} has been adopted.`)
+					}
 
-				if(data.manage == 1){
-					$('.manage').removeClass('d-none');
-					$('#btn-edit').attr('href','posts_edit.html?id='+findGetParameter('id'));
-				}
+					// Todo: Fix images
+					// console.log(`Image: ${post_data.image}`);
+					$('#image').attr('src', post_data.image);
+
+					if(post_data.manage == 1){
+						$('.manage').removeClass('d-none');
+						$('#btn-edit').attr('href','posts_edit.html?id='+findGetParameter('id'));
+					}
+
+					// Checking to see if a user is signed in. If they are, and the pet has not been adopted,
+					// the user will be shown the adopt button and have the ability to press it.
+					if (user_data['status'] != -1 && post_data['adopted'] == 0) {
+						$('#adopt-div').append('<button id="btn-adopt">Adopt</button>');
+					}
+
+					// Handling the adoption click
+					$(document).on('click','#btn-adopt', function() {
+						console.log("ADOPTED");
+
+						$.ajax({
+							type:'PUT',
+							url: API_URL + 'adopt.php',
+							data:{
+								title: post_data['id']
+							},
+							success: function(output, status, xhr) { 
+								if(output.status==1) window.location.href='index.html';
+								else alert(output.message);
+							}
+						});
+					});
+				});
 			});
 
-			// If a user is signed in, they have the option to adopt this pet
-			$.getJSON('API/getuser.php', function(data) {
-				console.log(data);
-
-				if (data['status'] != -1) {
-					// Second condition checking if the pet has been adopted.
-					// if pet has been adopted, display that to the page
-					$('#adopt-div').append('<button>Adopt</button>');
-				}
-			});
-
-			$(document).on('click','#btn-delete',function(){
+			$(document).on('click','#btn-delete', function() {
 				$.ajax({
 					type:'DELETE',
 					url: API_URL + 'posts.php',
