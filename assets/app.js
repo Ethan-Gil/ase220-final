@@ -16,3 +16,4 @@ function findGetParameter(parameterName){
 
 // Local API URL
 const API_URL = "API/";
+
