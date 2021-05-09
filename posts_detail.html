@@ -41,9 +41,6 @@
 				// If there is no title, then redirect to index.
 				if(data.title==null) window.location.href='index.html';
 
-				// Logging both the post and user data
-				console.log(data);
-
 				// Writing the post data to the page
 				$('#title').text(data.title);
 				$('#date').text('Published on: '+ data.date);
@@ -59,16 +56,15 @@
 					$('#adopted').text(`${data.title} has not been adopted.`);
 				}
 
+				// If the user is not logged in, notify them that they must login to adopt a pet.
 				if (!data['logged']) {
 					$('#logged').text(`Please sign in if you wish to adopt ${data.title}.`);
 				}
 
-				// Todo: Fix images
-				// console.log(`Image: ${data.image}`);
+				// Displaying the image
 				$('#image').attr('src', data.image);
 
-				console.log("Is Admin: " + data.manage);
-
+				// If the user is an Admin, they can edit/delete posts.
 				if(data.manage == 1){
 					$('.manage').removeClass('d-none');
 					$('#btn-edit').attr('href','posts_edit.html?id='+findGetParameter('id'));
@@ -98,6 +94,7 @@
 				});
 			});
 
+			// Deleting a post
 			$(document).on('click','#btn-delete', function() {
 				$.ajax({
 					type:'DELETE',
