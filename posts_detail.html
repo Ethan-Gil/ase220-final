@@ -62,6 +62,8 @@
 				// console.log(`Image: ${data.image}`);
 				$('#image').attr('src', data.image);
 
+				console.log("Is Admin: " + data.manage);
+
 				if(data.manage == 1){
 					$('.manage').removeClass('d-none');
 					$('#btn-edit').attr('href','posts_edit.html?id='+findGetParameter('id'));

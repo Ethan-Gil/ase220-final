@@ -4,7 +4,6 @@ require(__DIR__.'/lib_db.php');
 require(__DIR__.'/lib_session.php');
 header('Content-type: application/json');
 
-
 // // Getting the current USER ID
 // echo "Current User: ";
 // echo($_SESSION['user/ID']);
