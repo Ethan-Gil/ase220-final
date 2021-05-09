@@ -37,7 +37,7 @@
 					data: data,
 					success: function(output, status, xhr) { 
 						if(output.status==1){
-							alert('request is successful');
+							window.location.href='index.html';
 						}else{
 							alert(output.message);
 						}

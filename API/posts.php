@@ -46,7 +46,7 @@ function create($pdo){
 	if(count($_POST)>0){
 		$stmt = $pdo->prepare('INSERT INTO posts (title, description, image, date, user_ID) VALUES (?,?,?,?,?)');
 		$stmt->execute([$_POST['title'], $_POST['description'], $_POST['image'], $_POST['date'], $_SESSION['user/ID']]);
-		die(json_encode(['status'=>1,'message'=>'The message has been saved.']));
+		die(json_encode(['status'=>1,'message'=>'Successfully created post!']));
 	}
 }
 
