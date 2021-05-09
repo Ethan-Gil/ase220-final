@@ -26,8 +26,7 @@ if ($_SESSION) {
     $user=$stmt->fetch();
 
     // Returning the USER Information:
-    die(json_encode(['ID'=>$user['ID'], 'email'=>$user['email'], 'firstname'=>$user['firstname'], 'lastname'=>$user['lastname'], 
-    'adopted_animals'=>$user['adopted_animals'], 'is_admin'=>$user['is_admin']]));
+    die(json_encode(['ID'=>$user['ID'], 'email'=>$user['email'], 'firstname'=>$user['firstname'], 'lastname'=>$user['lastname'], 'is_admin'=>$user['is_admin']]));
 }
 else {
     die(json_encode(['status'=>-1,'message'=>'No user is currently logged in.']));
