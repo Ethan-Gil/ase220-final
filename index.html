@@ -33,12 +33,12 @@
 		<script>
 
 			// Getting the posts data
-			$.getJSON('API/posts.php', function(data) {
+			$.getJSON(API_URL + 'posts.php', function(data) {
 				for(i=0;i<data.length;i++) $('#posts').append('<div><h4><a href="posts_detail.html?id='+data[i].ID+'">'+data[i].title+'</a></h4></div>');
 			});
 
 			// Getting user information, if it exists
-			$.getJSON('API/getuser.php', function(data) {
+			$.getJSON(API_URL + 'getuser.php', function(data) {
 				console.log(data);
 
 				// Checking to see if the user should have access to the admin portal
