@@ -58,7 +58,7 @@
 				}
 
 				// If the user is not logged in, notify them that they must login to adopt a pet.
-				if (!data['logged']) {
+				if (!data['logged'] && !data.owner_ID) {
 					$('#logged').text(`Please sign in if you wish to adopt ${data.title}.`);
 				}
 
