@@ -50,6 +50,7 @@
 
                 // Getting the posts data
                 $.getJSON(APU_URL + 'posts.php', function(posts) {
+					console.log(posts)
                     for(i=0;i<posts.length;i++) $('#posts').append('<div><h4><a href="posts_detail.html?id='+posts[i].ID+'">'+posts[i].title+'</a></h4></div>');
                 });
 
