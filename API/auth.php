@@ -46,9 +46,9 @@ function signin($email, $password){
 		$_SESSION['user/ID']=$user['ID'];
 		$_SESSION['user/is_admin']=$user['is_admin'];
 
-		die(json_encode(['Logged in?'=>$_SESSION['user/ID']]));
+		// die(json_encode(['Logged in?'=>$_SESSION['user/ID']]));
 
-		// die(json_encode(['status'=>1,'message'=>'Welcome to our website']));
+		die(json_encode(['status'=>1,'message'=>'Welcome to our website']));
 
 	}else{
 		die(json_encode(['status'=>-1,'message'=>'The email or password are incorrect']));
