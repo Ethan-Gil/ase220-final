@@ -36,9 +36,6 @@ function detail($pdo){
 	// Checking if the user is logged in
 	$post['logged'] = isset($_SESSION['user/ID']);
 
-	// Error here: user/is_admin doesn't evaluable to true.
-	// die(json_encode(['Admin?'=>$_SESSION['user/is_admin']]));
-
 	if(isset($_SESSION['user/ID']) && ($post['user_ID']==$_SESSION['user/ID'] || $_SESSION['user/is_admin']==1)) $post['manage']=1;
 	else $post['manage']=0;
 	die(json_encode($post));

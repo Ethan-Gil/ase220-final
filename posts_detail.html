@@ -14,6 +14,7 @@
 			<p id="description"></p>
 			<br />
 			<p id="adopted"></p>
+			<p id="logged"></p>
 
 			<br />
 			<img src="..." id="image" width="25%" />
@@ -56,6 +57,10 @@
 				}
 				else {
 					$('#adopted').text(`${data.title} has not been adopted.`);
+				}
+
+				if (!data['logged']) {
+					$('#logged').text(`Please sign in if you wish to adopt ${data.title}.`);
 				}
 
 				// Todo: Fix images

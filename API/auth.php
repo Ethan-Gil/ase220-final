@@ -41,9 +41,11 @@ function signin($email, $password){
 
 		// die(json_encode(['action'=>$_GET['action'],'message'=>'Welcome to our website']));
 
-		// This code works
 		$_SESSION['user/ID']=$user['ID'];
 		$_SESSION['user/is_admin']=$user['is_admin'];
+
+		//die(json_encode(['Admin?'=>$_SESSION['user/is_admin']]));
+
 		die(json_encode(['status'=>1,'message'=>'Welcome to our website']));
 
 	}else{
