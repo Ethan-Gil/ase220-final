@@ -37,7 +37,7 @@ function signin($email, $password){
 	}
 	//Check whether the password is correct
 	$user=$query->fetch();
-	if(password_verify($password,$user['password'])){
+	if(password_verify($password, $user['password'])){
 
 		// die(json_encode(['action'=>$_GET['action'],'message'=>'Welcome to our website']));
 
