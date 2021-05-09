@@ -20,7 +20,7 @@ if(count($_POST)>0){
 			break;
 		case 'signup':
 			// die(json_encode(['isset'=>isset($_GET['action']), 'action'=>$_GET['action']]));
-			signup($_POST['email'], $_POST['password']);
+			signup($_POST['email'], $_POST['password'], $_POST['firstname'], $_POST['lastname']);
 			break;
 	}
 }
@@ -51,7 +51,7 @@ function signin($email, $password){
 	}
 }
 
-function signup($email, $password){
+function signup($email, $password, $firstname, $lastname){
 	require(__DIR__.'/lib_db.php');
 
 	// Check if they already have an account
@@ -66,9 +66,9 @@ function signup($email, $password){
 	}
 
 	//Add the user to the database
-	$query=$pdo->prepare('INSERT INTO users (email, password) VALUES (?,?)');
+	$query=$pdo->prepare('INSERT INTO users (email, password, firstname, lastname) VALUES (?,?,?,?)');
 	
-	$query->execute([$email,password_hash($password, PASSWORD_DEFAULT)]);
+	$query->execute([$email, password_hash($password, PASSWORD_DEFAULT), $firstname, $lastname]);
 
 	die(json_encode(['status'=>1,'message'=>'Your has been registered']));
 	//echo 'Your account has been created. Please, sign in.';

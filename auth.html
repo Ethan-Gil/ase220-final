@@ -39,13 +39,26 @@
 						<label>E-mail</label>
 						<input type="email" name="email" class="form-control" />
 					</div>
+
 					<div class="form-group mt-3">
 						<label>Password</label>
 						<input type="password" name="password" class="form-control" />
 					</div>
+
+					<div class="form-group mt-3">
+						<label>First Name</label>
+						<input type="text" name="firstname" class="form-control" />
+					</div>
+
+					<div class="form-group mt-3">
+						<label>Last Name</label>
+						<input type="text" name="lastname" class="form-control" />
+					</div>
+
 					<div class="form-group mt-3">
 						<button class="btn btn-primary" type="submit">Register your account</button>
 					</div>
+
 				</form>
 			</div>			
 		</div>		
@@ -110,6 +123,8 @@
 				var data={
 					email:$('form#signup input[name=email]').val(),
 					password:$('form#signup input[name=password]').val(),
+					firstname:$('form#signup input[name=firstname]').val(),
+					lastname:$('form#signup input[name=lastname]').val(),
 					action:'signup'
 				};
 
