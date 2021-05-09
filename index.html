@@ -7,7 +7,7 @@
 		<title>Shelter Homepage</title>
 	</head>
 	<body>
-		<h1>Adopt a pet!</h1>
+		<h1>Animal Shelter Homepage</h1>
 		<br />
 		<div id="welcome">
 		</div>
@@ -42,8 +42,8 @@
 					$('#signin').append('<div><h5><a href="auth.html">Sign in | Register</a></h5></div>');
 				}
 				else {
-					// $('#welcome').append('<div><h6>' + data['ID'] + ' | ' + data['email'] + ' | ' + data['firstname'] + ' | ' + data['lastname'] + ' | ' + data['adopted_animals'] + ' | ' + data['is_admin'] + '</h6></div>');
 					$('#welcome').append('<div><h5>Welcome ' + data['firstname'] + ' ' + data['lastname'] + '!</h5></div>');
+					$('#logout').append('<div><h5><a href="dashboard.html">Dashboard</a></h5></div>');
 					$('#logout').append('<div><h5><a href="auth.html?action=signout">Logout</a></h5></div>');
 
 				}

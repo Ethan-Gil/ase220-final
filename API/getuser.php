@@ -4,6 +4,7 @@ require(__DIR__.'/lib_db.php');
 require(__DIR__.'/lib_session.php');
 header('Content-type: application/json');
 
+
 // // Getting the current USER ID
 // echo "Current User: ";
 // echo($_SESSION['user/ID']);
@@ -18,7 +19,6 @@ header('Content-type: application/json');
 // die(json_encode(['session'=>$_SESSION == true]));
 
 
-// isset($_SESSION) always seems to evaluate to true
 if ($_SESSION) {
     $stmt = $pdo->prepare('SELECT * FROM users WHERE ID=?');
     $stmt->execute([$_SESSION['user/ID']]);
