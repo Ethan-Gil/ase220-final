@@ -9,11 +9,12 @@
 	<body>
 		<h1>Dashboard</h1>
 		<br />
+        <div id="new-post"></div><br /><br />
 		<div id="welcome"></div>
-
-        <div id="posts">
-            <br /><br />
-        </div>
+        <div id="posts-title"></div>
+        <div id="posts"></div><br /><br />
+        <div id="adopted-title"></div>
+        <div id="adopted"></div>
 
 
         <br /><br /><br />
@@ -22,15 +23,6 @@
 		<script src="assets/jquery-3.5.1.min.js"></script>
         <script src="assets/app.js"></script>
 		<script>
-
-			// Getting all of the logged-in users's posts
-			$.getJSON(API_URL + 'myposts.php', function(data) {
-				for(i = 0; i < data.length; i++) {
-                    $('#posts').append('<div><h5><a href="posts_detail.html?id='+data[i].ID +'">'+data[i].title+'</a></h5></div>');
-                }
-			});
-
-            // API call to get the user's posts
 
 			// Getting user information, if it exists
 			$.getJSON(API_URL + 'getuser.php', function(data) {
@@ -41,10 +33,28 @@
 				}
 				else {
 					// $('#welcome').append('<div><h6>' + data['ID'] + ' | ' + data['email'] + ' | ' + data['firstname'] + ' | ' + data['lastname'] + ' | ' + data['adopted_animals'] + ' | ' + data['is_admin'] + '</h6></div>');
-					$('#welcome').append('<div><h5>' + data.firstname + ' ' + data.lastname + '\'s Posts</h5></div>');
-                    $('#welcome').append('<div><h5><a href="posts_create.html">Create a post!</a></h5></div>');
+                    $('#new-post').append('<div><h5><a href="posts_create.html">Create a new post!</a></h5></div>');
+
+                    $('#posts-title').append('<div><h5>' + data.firstname + ' ' + data.lastname + '\'s Posts</h5></div>');
+                    $('#adopted-title').append('<div><h5>Animals adopted by ' + data.firstname + ' ' + data.lastname + '</h5></div>');
+
+
 					$('#logout').append('<div><h5><a href="auth.html?action=signout">Logout</a></h5></div>');
 				}
+			});
+
+            // Getting all of the logged-in users's posts
+			$.getJSON(API_URL + 'myposts.php', function(data) {
+				for(i = 0; i < data.length; i++) {
+                    $('#posts').append('<div><h5><a href="posts_detail.html?id='+data[i].ID +'">'+data[i].title+'</a></h5></div>');
+                }
+			});
+
+            // Getting all of the logged-in users's adoptions
+			$.getJSON(API_URL + 'get_adopted_animals.php', function(data) {
+				for(i = 0; i < data.length; i++) {
+                    $('#adopted').append('<div><h5><a href="posts_detail.html?id='+data[i].ID +'">'+data[i].title+'</a></h5></div>');
+                }
 			});
 
 		</script>

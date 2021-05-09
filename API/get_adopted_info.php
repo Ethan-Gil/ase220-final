@@ -4,8 +4,8 @@ require(__DIR__.'/lib_db.php');
 require(__DIR__.'/lib_session.php');
 header('Content-type: application/json');
 
-// Returns all of the posts published by the user that is logged in.
-
+// API used to get the list of users that have adopted animals.
+// Specifically used by member's page.
 
 if ($_SESSION) {
 
