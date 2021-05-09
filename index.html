@@ -3,25 +3,32 @@
 	<head>
 		<!-- Bootstrap CSS -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+		<link rel="stylesheet" href="style.css">
 
 		<title>Shelter Homepage</title>
 	</head>
 	<body>
-		<h1>Animal Shelter Homepage</h1>
-		<br />
-		<div id="welcome">
+		<div class="offset-md-2">
+
+			<h1>Animal Shelter Homepage</h1>
+			<br />
+			<div id="welcome">
+			</div>
+	
+			<br /><br />
+			<h3>All Animals</h3>
+			<div id="posts">
+			</div>
+	
+			<br /><br />
+			<div id="links">
+			</div>
+	
+			<div id="signin">
+			</div>
+
 		</div>
 
-		<br /><br />
-		<div id="posts">
-		</div>
-
-		<br /><br />
-		<div id="logout">
-		</div>
-
-		<div id="signin">
-		</div>
 
 		
 
@@ -37,17 +44,23 @@
 			$.getJSON('API/getuser.php', function(data) {
 				console.log(data);
 
+				// Checking to see if the user should have access to the admin portal
+				if (data['is_admin'] == 1) {
+					$('#links').append('<div><h5><a href="admin.html">Administrative Portal</a></h5></div>');
+				}
+
 				// If the user is not signed in
 				if (data['status'] == -1) {
 					$('#signin').append('<div><h5><a href="auth.html">Sign in | Register</a></h5></div>');
 				}
 				else {
 					$('#welcome').append('<div><h5>Welcome ' + data['firstname'] + ' ' + data['lastname'] + '!</h5></div>');
-					$('#logout').append('<div><h5><a href="dashboard.html">Dashboard</a></h5></div>');
-					$('#logout').append('<div><h5><a href="member_page.html">Members\' Page</a></h5></div>');
-					$('#logout').append('<div><h5><a href="auth.html?action=signout">Logout</a></h5></div>');
-
+					$('#links').append('<div><h5><a href="dashboard.html">Your Dashboard</a></h5></div>');
+					$('#links').append('<div><h5><a href="member_page.html">Members\' Page</a></h5></div>');
+					$('#links').append('<div><h5><a href="auth.html?action=signout">Logout</a></h5></div>');
 				}
+
+
 			});
 
 

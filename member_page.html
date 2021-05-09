@@ -7,17 +7,20 @@
 		<title>Member's Page</title>
 	</head>
 	<body>
-		<h1>Member's Page</h1>
-		<br />
-		<div id="welcome"></div>
+		<div class="offset-md-2">
+			<h1>Member's Page</h1>
+			<br />
+			<div id="welcome"></div>
+	
+			<div id="posts">
+				<br /><br />
+			</div>
+	
+	
+			<br /><br /><br />
+			<div id="logout"></div>
+		</div>
 
-        <div id="posts">
-            <br /><br />
-        </div>
-
-
-        <br /><br /><br />
-        <div id="logout"></div>
 
 		<script src="assets/jquery-3.5.1.min.js"></script>
         <script src="assets/app.js"></script>
@@ -38,7 +41,7 @@
 
                     // Anyone who has adopted an animal will have this information displayed
                     if (data[i].firstname) {
-                        $('#posts').append('<div><h5>' + data[i].title + ' was adopted by ' + data[i].firstname + ' ' + data[i].lastname + '</h5></div>');
+                        $('#posts').append('<div><h5>' + data[i].title + ' was adopted by ' + data[i].firstname + ' ' + data[i].lastname + '</h5></div><br />');
                     }
                 }
 			});
