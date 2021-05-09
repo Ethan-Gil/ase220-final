@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 
 function password ($pdo, $_PUT) {
 
-    $stmt = $pdo->prepare('UPDATE posts SET password=? WHERE posts.email =?');
+    $stmt = $pdo->prepare('UPDATE users SET password=? WHERE users.email =?');
 	$stmt->execute([password_hash($_PUT['password'], PASSWORD_DEFAULT), $_PUT['email']]);
 
 	die(json_encode(['status'=>1,'message'=>'Successfully changed password']));
